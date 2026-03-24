@@ -1,0 +1,208 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Enums
+enum TipoCliente {
+  PARTICULAR
+  EMPRESA
+}
+
+enum EstadoCliente {
+  ACTIVO
+  INACTIVO
+}
+
+enum NivelPersonalizacion {
+  BASICO
+  MEDIO
+  PREMIUM
+}
+
+enum EstatusPedido {
+  SOLICITADO
+  EN_DISENO
+  EN_PRODUCCION
+  LISTO
+  ENTREGADO
+  CANCELADO
+}
+
+enum EstadoCotizacion {
+  PENDIENTE
+  ENVIADA
+  APROBADA
+  RECHAZADA
+  EXPIRADA
+}
+
+enum TipoInteraccion {
+  LLAMADA
+  EMAIL
+  WHATSAPP
+  REUNION
+  NOTA
+  CONSULTA_TECNICA
+}
+
+enum RolUsuario {
+  ADMIN
+  VENDEDOR
+  PRODUCCION
+  LECTURA
+}
+
+enum EstadoUsuario {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+
+// Tablas
+model Usuario {
+  id         String      @id @default(uuid())
+  nombre     String
+  email      String      @unique
+  supabaseId String?     @unique @map("supabase_id")
+  rol        RolUsuario  @default(VENDEDOR)
+  estado     EstadoUsuario @default(PENDIENTE)
+  activo     Boolean     @default(true)
+  avatarUrl  String?     @map("avatar_url")
+  
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+  
+  @@map("usuarios")
+}
+
+model Cliente {
+  id                  String         @id @default(uuid())
+  tipoCliente         TipoCliente    @map("tipo_cliente")
+  nombre              String
+  nombreEmpresa       String?        @map("nombre_empresa")
+  email               String?
+  telefono            String
+  whatsapp            String?
+  direccion           String?
+  
+  preferenciasDiseño  Json?          @map("preferencias_diseno")
+  etiquetas           Json?
+  
+  fechaRegistro       DateTime       @default(now()) @map("fecha_registro")
+  ultimoContacto      DateTime?      @map("ultimo_contacto")
+  notas               String?
+  estado              EstadoCliente  @default(ACTIVO)
+  
+  totalPedidos        Int            @default(0) @map("total_pedidos")
+  valorTotalCompras   Decimal        @default(0) @map("valor_total_compras") @db.Decimal(12,2)
+  
+  pedidos             Pedido[]
+  cotizaciones        Cotizacion[]
+  interacciones       Interaccion[]
+  
+  createdAt           DateTime       @default(now()) @map("created_at")
+  updatedAt           DateTime       @updatedAt @map("updated_at")
+  
+  @@index([tipoCliente])
+  @@index([estado])
+  @@map("clientes")
+}
+
+model Pedido {
+  id                     String                @id @default(uuid())
+  numeroPedido           Int                   @unique @default(autoincrement()) @map("numero_pedido")
+  clienteId              String                @map("cliente_id")
+  usuarioId              String?               @map("usuario_id")
+  
+  tipoCaja               String                @map("tipo_caja")
+  nivelPersonalizacion   NivelPersonalizacion  @map("nivel_personalizacion")
+  cantidad               Int
+  descripcion            String?
+  
+  fechaSolicitud         DateTime              @default(now()) @map("fecha_solicitud")
+  fechaEntregaEstimada   DateTime              @map("fecha_entrega_estimada")
+  fechaEntregaReal       DateTime?             @map("fecha_entrega_real")
+  
+  estatus                EstatusPedido         @default(SOLICITADO)
+  
+  montoTotal             Decimal               @map("monto_total") @db.Decimal(12,2)
+  montoPagado            Decimal               @default(0) @map("monto_pagado") @db.Decimal(12,2)
+  
+  archivosDiseño         Json?                 @map("archivos_diseno")
+  notasEspeciales        String?               @map("notas_especiales")
+  notasProduccion        String?               @map("notas_produccion")
+  
+  urgente                Boolean               @default(false)
+  
+  cliente                Cliente               @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  
+  createdAt              DateTime              @default(now()) @map("created_at")
+  updatedAt              DateTime              @updatedAt @map("updated_at")
+  
+  @@index([clienteId])
+  @@index([estatus])
+  @@index([fechaEntregaEstimada])
+  @@map("pedidos")
+}
+
+model Cotizacion {
+  id                 String             @id @default(uuid())
+  numeroCotizacion   Int                @unique @default(autoincrement()) @map("numero_cotizacion")
+  clienteId          String             @map("cliente_id")
+  usuarioId          String?            @map("usuario_id")
+  
+  descripcion        String
+  items              Json
+  
+  montoSubtotal      Decimal            @map("monto_subtotal") @db.Decimal(12,2)
+  descuento          Decimal            @default(0) @db.Decimal(12,2)
+  montoTotal         Decimal            @map("monto_total") @db.Decimal(12,2)
+  
+  fechaCreacion      DateTime           @default(now()) @map("fecha_creacion")
+  fechaEnviada       DateTime?          @map("fecha_enviada")
+  fechaValidez       DateTime           @map("fecha_validez")
+  
+  estado             EstadoCotizacion   @default(PENDIENTE)
+  
+  convertidaPedido   Boolean            @default(false) @map("convertida_pedido")
+  pedidoId           String?            @map("pedido_id")
+  
+  notas              String?
+  
+  cliente            Cliente            @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  
+  @@index([clienteId])
+  @@index([estado])
+  @@map("cotizaciones")
+}
+
+model Interaccion {
+  id                      String           @id @default(uuid())
+  clienteId               String           @map("cliente_id")
+  usuarioId               String?          @map("usuario_id")
+  
+  tipo                    TipoInteraccion
+  asunto                  String
+  descripcion             String
+  
+  fecha                   DateTime         @default(now())
+  recordatorioFecha       DateTime?        @map("recordatorio_fecha")
+  recordatorioCompletado  Boolean          @default(false) @map("recordatorio_completado")
+  
+  pedidoId                String?          @map("pedido_id")
+  
+  cliente                 Cliente          @relation(fields: [clienteId], references: [id], onDelete: Cascade)
+  
+  createdAt               DateTime         @default(now()) @map("created_at")
+  updatedAt               DateTime         @updatedAt @map("updated_at")
+  
+  @@index([clienteId])
+  @@map("interacciones")
+}
