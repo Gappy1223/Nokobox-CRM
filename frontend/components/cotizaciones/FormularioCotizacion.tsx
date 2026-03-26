@@ -140,8 +140,8 @@ export default function FormularioCotizacion() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Nueva Cotización</h1>
+    <div className="max-w-4xl mx-auto p-8 text-black">
+      <h1 className="text-2xl font-bold text-black mb-6">Nueva Cotización</h1>
 
       {error && (
         <div className="mb-4 p-3 bg-red-50 text-red-600 border border-red-200 rounded">
@@ -152,7 +152,7 @@ export default function FormularioCotizacion() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Cliente */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Cliente *
           </label>
           <select
@@ -174,7 +174,7 @@ export default function FormularioCotizacion() {
 
         {/* Descripción */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm font-medium text-black mb-2">
             Descripción General *
           </label>
           <textarea
@@ -191,13 +191,13 @@ export default function FormularioCotizacion() {
         {/* Items */}
         <div>
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold">
+            <h3 className="text-lg font-semibold text-black">
               Items de la Cotización
             </h3>
             <button
               type="button"
               onClick={agregarItem}
-              className="px-4 py-2 bg-green-600 text-white rounded-md"
+              className="px-4 py-2 bg-green-600 text-black rounded-md"
             >
               + Agregar Item
             </button>
@@ -326,7 +326,7 @@ export default function FormularioCotizacion() {
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md"
+            className="px-6 py-2 bg-blue-600 text-black rounded-md"
           >
             {loading ? 'Creando...' : 'Crear Cotización'}
           </button>
