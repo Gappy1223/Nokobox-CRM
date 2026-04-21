@@ -92,7 +92,7 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Nueva Interacción</h1>
+      <h1 className="text-3xl font-bold text-black-800 mb-6">Nueva Interacción</h1>
 
       {error && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">

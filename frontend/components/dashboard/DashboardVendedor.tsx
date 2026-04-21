@@ -68,22 +68,22 @@ export default async function DashboardVendedor({ usuario }: Props) {
 
       {/* Mis Métricas */}
       <div className="grid grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white border border-blue-500 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-6">
           <h3 className="text-sm text-gray-900 mb-2">Mis Cotizaciones</h3>
           <p className="text-3xl font-bold text-purple-600">{misCotizaciones}</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white border border-green-500 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-6">
           <h3 className="text-sm text-gray-900 mb-2">Mis Pedidos Activos</h3>
           <p className="text-3xl font-bold text-blue-600">{misPedidos}</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white border border-purple-500 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-6">
           <h3 className="text-sm text-gray-900 mb-2">Clientes B2B</h3>
           <p className="text-3xl font-bold text-green-600">{misClientesB2B}</p>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white border border-gray-500 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-6">
           <h3 className="text-sm text-gray-900 mb-2">Clientes B2C</h3>
           <p className="text-3xl font-bold text-orange-600">{misClientesB2C}</p>
         </div>
@@ -102,33 +102,33 @@ export default async function DashboardVendedor({ usuario }: Props) {
       {/* Grid de Acciones y Recordatorios */}
       <div className="grid grid-cols-2 gap-6">
         {/* Acciones Rápidas */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white border border-gray-500 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-6">
           <h3 className="text-lg font-semibold text-black mb-4">Acciones Rápidas</h3>
           <div className="grid grid-cols-2 gap-3">
             <Link
               href="/cotizaciones/nueva"
-              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 text-center"
+              className="shadow-[0_0_3px_rgba(0,0,0,0.1)] p-4 border-2 border-blue-400 rounded-lg bg-blue-50 hover:bg-blue-50 hover:border-blue-200 text-center"
             >
               <div className="text-2xl mb-2">💰</div>
               <div className="text-sm font-medium text-black">Nueva Cotización</div>
             </Link>
             <Link
               href="/pedidos/nuevo"
-              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 text-center"
+              className="shadow-[0_0_3px_rgba(0,0,0,0.1)] p-4 border-2 border-green-400 rounded-lg bg-green-50 hover:bg-green-50 hover:border-green-200 text-center"
             >
               <div className="text-2xl mb-2">📦</div>
               <div className="text-sm font-medium text-black">Nuevo Pedido</div>
             </Link>
             <Link
               href="/clientes/nuevo"
-              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 text-center"
+              className="shadow-[0_0_3px_rgba(0,0,0,0.1)] p-4 border-2 border-purple-400 rounded-lg bg-purple-50 hover:bg-purple-50 hover:border-purple-200 text-center"
             >
               <div className="text-2xl mb-2">👤</div>
               <div className="text-sm font-medium text-black">Nuevo Cliente</div>
             </Link>
             <Link
               href="/cotizaciones"
-              className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 text-center"
+              className="shadow-[0_0_3px_rgba(0,0,0,0.1)] p-4 border-2 border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-50 hover:border-gray-200 text-center"
             >
               <div className="text-2xl mb-2">📊</div>
               <div className="text-sm font-medium text-black">Ver Pipeline</div>

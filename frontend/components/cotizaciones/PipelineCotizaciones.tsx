@@ -91,13 +91,13 @@ export default function PipelineCotizaciones() {
     <div className="p-8">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">
+        <h1 className="text-3xl font-bold text-black-800 mb-6">
           Pipeline de Cotizaciones
         </h1>
 
         <Link
           href="/cotizaciones/nueva"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          className="px-4 py-2 border-2 border-green-400 rounded-lg bg-green-200 hover:bg-green-50 hover:border-green-400 text-black"
         >
           + Nueva Cotización
         </Link>
@@ -122,7 +122,7 @@ export default function PipelineCotizaciones() {
 
           return (
             <div key={estado} className="flex-shrink-0 w-80">
-              <div className="bg-gray-100 rounded-lg p-4">
+              <div className="border-2 border-gray-400 bg-gray-50 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-4">
                 <h3 className="font-semibold text-gray-900 mb-4">
                   {NOMBRES_ESTADOS[estado]}
                   <span className="ml-2 text-sm text-gray-900">
@@ -135,7 +135,7 @@ export default function PipelineCotizaciones() {
                     <Link
                       key={cotizacion.id}
                       href={`/cotizaciones/${cotizacion.id}`}
-                      className="block bg-white p-4 rounded shadow hover:shadow-md transition"
+                      className="block bg-blue-100 p-4 rounded shadow hover:shadow-md transition"
                     >
                       <div className="font-medium">
                         #{cotizacion.numeroCotizacion}
@@ -178,7 +178,7 @@ function Card({
   color?: string
 }) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow">
+    <div className="border-2 border-gray-200 rounded-lg p-4 shadow">
       <div className="text-sm text-gray-900">{title}</div>
       <div className={`text-2xl font-bold ${color}`}>
         {value}

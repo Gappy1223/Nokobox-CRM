@@ -54,11 +54,11 @@ export default async function UsuariosPage() {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">
           ✅ Usuarios Activos ({aprobados.length})
         </h2>
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-400 shadow overflow-hidden">
           <table className="min-w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-100 border-b border-gray-400">
               <tr>
-                <th className="ppx-6 py-3 text-left text-sm font-bold text-gray-900 uppercase">
+                <th className="px-6 py-3 text-left text-sm font-bold text-gray-900 uppercase">
                   Nombre
                 </th>
                 <th className="px-6 py-3 text-left text-sm font-bold text-gray-900 uppercase">
@@ -67,7 +67,7 @@ export default async function UsuariosPage() {
                 <th className="px-6 py-3 text-left text-sm font-bold text-gray-900 uppercase">
                   Rol
                 </th>
-                <th className="ppx-6 py-3 text-left text-sm font-bold text-gray-900 uppercase">
+                <th className="px-6 py-3 text-left text-sm font-bold text-gray-900 uppercase">
                   Estado
                 </th>
               </tr>

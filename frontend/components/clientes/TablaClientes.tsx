@@ -40,10 +40,10 @@ export default function TablaClientes() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl text-gray-800 font-bold">Clientes</h1>
+        <h1 className="text-3xl font-bold text-black-800 mb-6">Clientes</h1>
         <Link
           href="/clientes/nuevo"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          className="px-4 py-2 border-2 border-green-400 rounded-lg bg-green-200 hover:bg-green-50 hover:border-green-400 text-black"
         >
           + Nuevo Cliente
         </Link>
@@ -60,9 +60,9 @@ export default function TablaClientes() {
           No hay clientes registrados.
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-400 overflow-hidden">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-100 border-b border-gray-400">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
                   Nombre
@@ -115,7 +115,7 @@ export default function TablaClientes() {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <Link
                       href={`/clientes/${cliente.id}`}
-                      className="text-blue-600 hover:text-blue-900"
+                      className="text-green-600 hover:text-green-900"
                     >
                       Ver
                     </Link>

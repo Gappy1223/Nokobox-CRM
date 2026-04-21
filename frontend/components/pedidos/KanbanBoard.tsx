@@ -98,7 +98,7 @@ export default function KanbanBoard() {
       onDragEnd={handleDragEnd}
     >
       <div className="p-8">
-        <h1 className="text-2xl font-bold mb-6 text-black" >
+        <h1 className="text-3xl font-bold text-black-800 mb-6" >
           Tablero de Pedidos
         </h1>
 
@@ -141,7 +141,7 @@ function Columna({
 
   return (
     <div className="flex-shrink-0 w-80">
-      <div className="bg-gray-100 rounded-lg p-4">
+      <div className="border-2 border-gray-400 bg-gray-50 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-4">
 
         <h3 className="font-semibold mb-4 text-black">
           {title}
@@ -197,7 +197,7 @@ function TarjetaPedido({ pedido }: { pedido: Pedido }) {
       style={style}
       {...attributes}
       {...listeners}
-      className="bg-white p-4 rounded shadow hover:shadow-md transition cursor-grab"
+      className="bg-blue-100 p-4 rounded shadow hover:shadow-md transition cursor-grab"
     >
 
       <div className="font-medium">

@@ -40,7 +40,7 @@ export default async function InteraccionesPage() {
         <h1 className="text-2xl font-bold">Interacciones</h1>
         <Link
           href="/interacciones/nueva"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          className="px-4 py-2 text-black border-2 border-green-400 rounded-lg bg-green-200 hover:bg-green-50 hover:border-green-400"
         >
           + Nueva Interacción
         </Link>

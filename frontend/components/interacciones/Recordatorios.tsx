@@ -56,7 +56,7 @@ export default function Recordatorios() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-white border border-gray-500 rounded-2xl shadow-[0_0_5px_rgba(0,0,0,0.2)] p-6">
       <h3 className="text-lg font-semibold text-black mb-4">
         🔔 Recordatorios Próximos
       </h3>
