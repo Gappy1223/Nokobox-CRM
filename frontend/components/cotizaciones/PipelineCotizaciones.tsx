@@ -35,7 +35,7 @@ interface Cotizacion {
   estado: EstadoCotizacion
   montoTotal: number
   fechaValidez: string
-  cliente: Cliente
+  cliente?: Cliente
 }
 
 interface Stats {
@@ -166,7 +166,7 @@ export default function PipelineCotizaciones() {
  
         <Link
           href="/cotizaciones/nueva"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl flex items-center gap-2.5 transition-all font-bold shadow-lg shadow-blue-200 active:scale-95 text-sm"
+          className="px-4 py-2 text-black border-2 border-green-400 rounded-lg bg-green-200 hover:bg-green-50 hover:border-green-400 flex items-center gap-2 transition-all font-bold"
         >
           <Plus size={20} strokeWidth={3} className="text-white" />
           Nueva Cotización
@@ -300,7 +300,7 @@ function TarjetaCotizacion({ cotizacion }: { cotizacion: Cotizacion }) {
         </div>
  
         <div className="font-bold text-slate-900 leading-tight pr-6 group-hover:text-blue-600 transition-colors">
-          {cotizacion.cliente.nombre}
+          {cotizacion.cliente?.nombre || 'Cliente no asignado'}
         </div>
  
         <div className="text-lg font-black text-slate-700 mt-2">
@@ -348,7 +348,7 @@ function TarjetaVisual({
         #{cotizacion.numeroCotizacion}
       </div>
       <div className="font-bold text-slate-900 leading-tight">
-        {cotizacion.cliente.nombre}
+        {cotizacion.cliente?.nombre || 'Cliente no asignado'}
       </div>
       <div className="text-lg font-black text-slate-700 mt-2">
         $
