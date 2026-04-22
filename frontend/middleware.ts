@@ -9,16 +9,23 @@ export async function middleware(request: NextRequest) {
     },
   })
 
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return response
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         getAll() {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) => request.cookies.set(name, value))
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           response = NextResponse.next({
             request: {
               headers: request.headers,
@@ -37,36 +44,11 @@ export async function middleware(request: NextRequest) {
   const isPublicRoute = 
     request.nextUrl.pathname.startsWith('/login') || 
     request.nextUrl.pathname.startsWith('/registro') || 
-    request.nextUrl.pathname.startsWith('/pendiente') ||
-    request.nextUrl.pathname.startsWith('/recuperar-contraseña') ||
-    request.nextUrl.pathname.startsWith('/restablecer-contraseña') ||
-    request.nextUrl.pathname.startsWith('/api/') // IMPORTANTE: permitir APIs
+    request.nextUrl.pathname.startsWith('/api/') ||
+    request.nextUrl.pathname === '/'
 
-  // 1. Si no hay sesión y no es ruta pública -> Login
   if (!user && !isPublicRoute) {
     return NextResponse.redirect(new URL('/login', request.url))
-  }
-
-  // 2. Si hay sesión, verificar estado usando API interna
-  if (user && !isPublicRoute) {
-    try {
-      const verifyUrl = new URL('/api/usuarios/verificar-estado', request.url)
-      
-      const verifyResponse = await fetch(verifyUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ supabaseId: user.id })
-      })
-      
-      const { estado } = await verifyResponse.json()
-      
-      if (estado !== 'APROBADO') {
-        return NextResponse.redirect(new URL('/pendiente', request.url))
-      }
-    } catch (error) {
-      console.error('Error verificando estado:', error)
-      return NextResponse.redirect(new URL('/pendiente', request.url))
-    }
   }
 
   return response
