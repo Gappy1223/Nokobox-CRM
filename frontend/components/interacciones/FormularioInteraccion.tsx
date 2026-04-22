@@ -92,7 +92,7 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-3xl font-bold text-black-800 mb-6">Nueva Interacción</h1>
+      <h1 className="text-3xl font-bold text-black mb-6">Nueva Interacción</h1>
 
       {error && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
@@ -104,14 +104,14 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
         {/* Cliente */}
         {!clienteId && (
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm text-black font-medium mb-2">
               Cliente *
             </label>
             <select
               required
               value={formData.clienteId}
               onChange={(e) => handleChange('clienteId', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             >
               <option value="">Seleccionar cliente...</option>
               {clientes.map((cliente) => (
@@ -125,7 +125,7 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
 
         {/* Tipo */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Tipo de Interacción *
           </label>
           <select
@@ -133,7 +133,7 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
             onChange={(e) =>
               handleChange('tipo', e.target.value as TipoInteraccion)
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
           >
             <option value="LLAMADA">📞 Llamada</option>
             <option value="EMAIL">📧 Email</option>
@@ -146,7 +146,7 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
 
         {/* Asunto */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Asunto *
           </label>
           <input
@@ -154,27 +154,27 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
             required
             value={formData.asunto}
             onChange={(e) => handleChange('asunto', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
           />
         </div>
 
         {/* Descripción */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Descripción *
           </label>
           <textarea
             required
             value={formData.descripcion}
             onChange={(e) => handleChange('descripcion', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             rows={4}
           />
         </div>
 
         {/* Fecha */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Fecha de la Interacción *
           </label>
           <input
@@ -182,13 +182,13 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
             required
             value={formData.fecha}
             onChange={(e) => handleChange('fecha', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
           />
         </div>
 
         {/* Recordatorio */}
         <div className="border-t pt-4">
-          <label className="flex items-center gap-2 mb-2">
+          <label className="flex items-center text-black gap-2 mb-2">
             <input
               type="checkbox"
               checked={!!formData.recordatorioFecha}
@@ -235,7 +235,7 @@ export default function FormularioInteraccion({ clienteId, pedidoId }: Props) {
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+            className="px-6 py-2 border border-gray-300 text-black rounded-md hover:bg-gray-50"
           >
             Cancelar
           </button>

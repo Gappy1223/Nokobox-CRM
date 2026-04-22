@@ -85,172 +85,122 @@ export default function FormularioPedido() {
     }
   }
 
-  return (
-    <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold text-black mb-6">Nuevo Pedido</h1>
+  const inputClassName = "w-full px-3 py-2 border border-gray-400 bg-white text-black font-semibold rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+  const labelClassName = "block text-sm font-bold text-gray-900 mb-2"
 
-      {error && (
-        <div className="mb-4 p-3 text-sm text-red-700 bg-red-100 rounded">
-          {error}
-        </div>
-      )}
+ return (
+    <div className="max-w-2xl mx-auto p-6 bg-gray-50 rounded-xl shadow-md border border-gray-200">
+      <h1 className="text-2xl font-bold mb-6 text-black border-b pb-4">
+        Crear Nuevo Pedido
+      </h1>
+
+      {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-6">
-
-        {/* CLIENTE */}
         <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Cliente *
-          </label>
-
+          <label className={labelClassName}>Cliente *</label>
           <select
             required
             value={formData.clienteId}
             onChange={(e) => updateField('clienteId', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
+            className={inputClassName}
           >
-            <option value="">Seleccionar cliente...</option>
-
-            {clientes.map((cliente) => (
-              <option key={cliente.id} value={cliente.id}>
-                {cliente.nombre} ({cliente.tipoCliente})
+            <option value="" className="text-gray-500">Selecciona un cliente</option>
+            {clientes.map((c) => (
+              <option key={c.id} value={c.id} className="text-black">
+                {c.nombre}
               </option>
             ))}
           </select>
         </div>
 
-        {/* TIPO CAJA */}
-        <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Tipo de Caja *
-          </label>
-
-          <input
-            type="text"
-            required
-            value={formData.tipoCaja}
-            onChange={(e) => updateField('tipoCaja', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
-            placeholder="Ej: Caja mediana kraft"
-          />
-        </div>
-
-        {/* PERSONALIZACIÓN */}
-        <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Nivel de Personalización
-          </label>
-
-          <select
-            value={formData.nivelPersonalizacion}
-            onChange={(e) =>
-              updateField(
-                'nivelPersonalizacion',
-                e.target.value as NivelPersonalizacion
-              )
-            }
-            className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
-          >
-            <option value="BASICO">Básico</option>
-            <option value="MEDIO">Medio</option>
-            <option value="PREMIUM">Premium</option>
-          </select>
-        </div>
-
-        {/* CANTIDAD Y MONTO */}
-        <div className="grid grid-cols-2 gap-4">
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-black mb-2">
-              Cantidad *
-            </label>
-
+            <label className={labelClassName}>Tipo de Caja *</label>
             <input
-              type="number"
+              type="text"
               required
-              min={1}
-              value={formData.cantidad}
-              onChange={(e) =>
-                updateField('cantidad', e.target.value === '' ? '' : Number(e.target.value))
-              }
-              className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
+              value={formData.tipoCaja}
+              onChange={(e) => updateField('tipoCaja', e.target.value)}
+              className={inputClassName}
+              placeholder="Ej. Caja de madera"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-black mb-2">
-              Monto Total *
-            </label>
+            <label className={labelClassName}>Nivel de Personalización</label>
+            <select
+              value={formData.nivelPersonalizacion}
+              onChange={(e) => updateField('nivelPersonalizacion', e.target.value as NivelPersonalizacion)}
+              className={inputClassName}
+            >
+              <option value="BASICO" className="text-black">Básico</option>
+              <option value="INTERMEDIO" className="text-black">Intermedio</option>
+              <option value="PREMIUM" className="text-black">Premium</option>
+            </select>
+          </div>
 
+          <div>
+            <label className={labelClassName}>Cantidad *</label>
             <input
               type="number"
               required
-              min={0}
+              min="1"
+              value={formData.cantidad}
+              onChange={(e) => updateField('cantidad', e.target.value === '' ? '' : Number(e.target.value))}
+              className={inputClassName}
+            />
+          </div>
+
+          <div>
+            <label className={labelClassName}>Monto Total (MXN)</label>
+            <input
+              type="number"
               step="0.01"
               value={formData.montoTotal}
-              onChange={(e) =>
-                updateField('montoTotal', e.target.value === '' ? '' : Number(e.target.value))
-              }
-              className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
+              onChange={(e) => updateField('montoTotal', e.target.value === '' ? '' : Number(e.target.value))}
+              className={inputClassName}
             />
           </div>
-
         </div>
 
-        {/* FECHA ENTREGA */}
         <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Fecha de Entrega Estimada *
-          </label>
-
+          <label className={labelClassName}>Fecha de Entrega Estimada *</label>
           <input
             type="date"
             required
             value={formData.fechaEntregaEstimada}
-            onChange={(e) =>
-              updateField('fechaEntregaEstimada', e.target.value)
-            }
-            className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
+            onChange={(e) => updateField('fechaEntregaEstimada', e.target.value)}
+            className={inputClassName}
           />
         </div>
 
-        {/* DESCRIPCIÓN */}
         <div>
-          <label className="block text-sm font-medium text-black mb-2">
-            Descripción / Notas
-          </label>
-
+          <label className={labelClassName}>Descripción / Notas</label>
           <textarea
             rows={4}
             value={formData.descripcion}
-            onChange={(e) =>
-              updateField('descripcion', e.target.value)
-            }
-            className="w-full px-3 py-2 border border-gray-300 text-black rounded-md"
+            onChange={(e) => updateField('descripcion', e.target.value)}
+            className={inputClassName}
           />
         </div>
 
-        {/* BOTONES */}
-        <div className="flex gap-4">
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
-          >
-            {loading ? 'Creando...' : 'Crear Pedido'}
-          </button>
-
+        <div className="flex gap-4 pt-4">
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-2 border border-gray-300 text-black rounded-md hover:bg-gray-50"
+            className="flex-1 px-6 py-2 border border-gray-400 text-black font-bold rounded-md hover:bg-gray-200 transition-colors"
           >
             Cancelar
           </button>
-
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex-1 px-6 py-2 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          >
+            {loading ? 'Creando...' : 'Crear Pedido'}
+          </button>
         </div>
-
       </form>
     </div>
   )

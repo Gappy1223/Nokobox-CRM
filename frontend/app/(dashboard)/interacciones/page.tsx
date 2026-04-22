@@ -37,7 +37,7 @@ export default async function InteraccionesPage() {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Interacciones</h1>
+        <h1 className="text-2xl text-black font-bold">Interacciones</h1>
         <Link
           href="/interacciones/nueva"
           className="px-4 py-2 text-black border-2 border-green-400 rounded-lg bg-green-200 hover:bg-green-50 hover:border-green-400"

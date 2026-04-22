@@ -46,7 +46,7 @@ export default function TimelineInteracciones({ interacciones }: Props) {
           <div key={interaccion.id} className="flex gap-4">
             {/* Timeline line */}
             <div className="flex flex-col items-center">
-              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-xl">
+              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-xl text-black">
                 {ICONOS_TIPO[interaccion.tipo]}
               </div>
               {index < interacciones.length - 1 && (
@@ -58,7 +58,7 @@ export default function TimelineInteracciones({ interacciones }: Props) {
             <div className="flex-1 pb-8">
               <div className="bg-gray-50 rounded-lg shadow p-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-semibold">{interaccion.asunto}</h4>
+                  <h4 className="font-semibold text-black">{interaccion.asunto}</h4>
                   <span className="text-xs text-gray-800">
                     {fecha.toLocaleDateString('es-MX', {
                       day: 'numeric',
@@ -70,7 +70,7 @@ export default function TimelineInteracciones({ interacciones }: Props) {
                   </span>
                 </div>
                 
-                <p className="text-sm text-gray-800 whitespace-pre-wrap">
+                <p className="text-sm text-black whitespace-pre-wrap">
                   {interaccion.descripcion}
                 </p>
 

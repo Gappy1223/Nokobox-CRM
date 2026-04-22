@@ -79,14 +79,14 @@ export default function BotonAprobar({ usuarioId, rolSolicitado }: Props) {
         <button
           onClick={() => setShowModal(true)}
           disabled={loading}
-          className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
+          className="px-4 py-2 bg-green-600 text-black rounded-md hover:bg-green-700 disabled:opacity-50"
         >
           ✓ Aprobar
         </button>
         <button
           onClick={handleRechazar}
           disabled={loading}
-          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:opacity-50"
+          className="px-4 py-2 bg-red-600 text-black rounded-md hover:bg-red-700 disabled:opacity-50"
         >
           ✗ Rechazar
         </button>
@@ -96,16 +96,16 @@ export default function BotonAprobar({ usuarioId, rolSolicitado }: Props) {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4">Confirmar Aprobación</h3>
+            <h3 className="text-xl font-bold text-black mb-4">Confirmar Aprobación</h3>
             
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm text-black font-medium mb-2">
                 Asignar Rol Final:
               </label>
               <select
                 value={rolSeleccionado}
                 onChange={(e) => setRolSeleccionado(e.target.value as RolUsuario)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
               >
                 <option value="LECTURA">Solo Lectura</option>
                 <option value="VENDEDOR">Vendedor</option>
@@ -124,7 +124,7 @@ export default function BotonAprobar({ usuarioId, rolSolicitado }: Props) {
               <button
                 onClick={() => setShowModal(false)}
                 disabled={loading}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border text-black  border-gray-300 rounded-md hover:bg-gray-50"
               >
                 Cancelar
               </button>

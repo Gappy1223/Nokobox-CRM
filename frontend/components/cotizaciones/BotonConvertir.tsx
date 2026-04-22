@@ -21,32 +21,47 @@ export default function BotonConvertir({ cotizacionId, estado, convertida }: Pro
   }
 
   async function handleConvertir() {
-    if (!fechaEntrega) {
+    if (!fechaEntrega || loading) {
       alert('Debes especificar una fecha de entrega')
       return
     }
 
-    setLoading(true)
+    setLoading(true);
 
     try {
       const res = await fetch(`/api/cotizaciones/${cotizacionId}/convertir`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fechaEntregaEstimada: fechaEntrega }),
-      })
+      });
+
+      const responseData = await res.json()
 
       if (!res.ok) {
-        const error = await res.json()
-        throw new Error(error.error || 'Error al convertir')
+        if(responseData.error?.includes('ya ha sido convertida')){
+          router.push('/pedidos');
+          router.refresh();
+          return;
+        }
+        throw new Error(responseData.error || 'Error al convertir')
       }
+      setShowModal(false);
+      router.push('/pedidos');
+      router.refresh();
 
-      const data = await res.json()
+      // [CORRECCIÓN CRÍTICA]: La API devuelve { data: { id: ... } }
+      // Accedemos a responseData.data.id
+      if (responseData && responseData.data && responseData.data.id) {
+        setShowModal(false)
+        router.push(`/pedidos`) // Redirigimos al tablero de pedidos
+        router.refresh()
+      } else {
+        throw new Error('No se recibió el ID del pedido creado')
+      }
       
-      // Redirigir al pedido creado
-      router.push(`/pedidos/${data.pedido.id}`)
-      router.refresh()
-    } catch (error: any) {
-      alert(error.message)
+    } catch (err: any) {
+      console.error('Error al convertir:', err)
+      alert(err.message)
     } finally {
       setLoading(false)
     }
@@ -56,30 +71,29 @@ export default function BotonConvertir({ cotizacionId, estado, convertida }: Pro
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium"
+        className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-bold transition-all shadow-lg active:scale-95"
       >
-        ✓ Convertir a Pedido
+        Convertir a Pedido
       </button>
 
-      {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4">Convertir a Pedido</h3>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 max-w-md w-full shadow-2xl">
+            <h3 className="text-xl text-black font-bold mb-4">Convertir a Pedido</h3>
             
             <p className="text-gray-600 mb-4">
-              Esta cotización se convertirá en un pedido. Especifica la fecha de entrega estimada.
+              Esta cotización se convertirá en un pedido de producción. Especifica la fecha de entrega estimada.
             </p>
 
             <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">
+              <label className="block text-sm text-black font-bold mb-2">
                 Fecha de Entrega Estimada *
               </label>
               <input
                 type="date"
                 value={fechaEntrega}
                 onChange={(e) => setFechaEntrega(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                className="w-full px-3 py-2 border text-black border-gray-400 rounded-md focus:ring-2 focus:ring-green-500 outline-none"
                 min={new Date().toISOString().split('T')[0]}
               />
             </div>
@@ -88,14 +102,14 @@ export default function BotonConvertir({ cotizacionId, estado, convertida }: Pro
               <button
                 onClick={handleConvertir}
                 disabled={loading || !fechaEntrega}
-                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-green-600 text-white font-bold rounded-md hover:bg-green-700 disabled:opacity-50 transition-colors"
               >
                 {loading ? 'Convirtiendo...' : 'Confirmar'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
                 disabled={loading}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-gray-300 text-black font-bold rounded-md hover:bg-gray-50 transition-colors"
               >
                 Cancelar
               </button>

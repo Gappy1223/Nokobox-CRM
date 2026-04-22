@@ -65,7 +65,7 @@ export default async function DashboardAdmin() {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold text-black-800 mb-6">Dashboard Administrador</h1>
+      <h1 className="text-3xl font-bold text-black mb-6">Dashboard Administrador</h1>
 
       {/* Métricas Rápidas */}
       <div className="grid grid-cols-4 gap-6 mb-8">

@@ -27,7 +27,7 @@ export default async function DetalleCotizacionPage({
         {/* Header */}
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-3xl font-bold">Cotización #{cotizacion.numeroCotizacion}</h1>
+            <h1 className="text-3xl  text-black font-bold">Cotización #{cotizacion.numeroCotizacion}</h1>
             <p className="text-gray-600 mt-1">
               Creada el {new Date(cotizacion.fechaCreacion).toLocaleDateString('es-MX')}
             </p>
@@ -46,16 +46,16 @@ export default async function DetalleCotizacionPage({
         {/* Cliente */}
         <div className="mb-6 pb-6 border-b">
           <h2 className="font-semibold text-gray-700 mb-2">Cliente</h2>
-          <p className="text-lg">{cotizacion.cliente.nombre}</p>
+          <p className="text-lg text-black">{cotizacion.cliente.nombre}</p>
           {cotizacion.cliente.nombreEmpresa && (
-            <p className="text-gray-600">{cotizacion.cliente.nombreEmpresa}</p>
+            <p className=" text-black">{cotizacion.cliente.nombreEmpresa}</p>
           )}
         </div>
 
         {/* Descripción */}
         <div className="mb-6 pb-6 border-b">
-          <h2 className="font-semibold text-gray-700 mb-2">Descripción</h2>
-          <p className="text-gray-800">{cotizacion.descripcion}</p>
+          <h2 className="font-semibold  text-black mb-2">Descripción</h2>
+          <p className="text-black">{cotizacion.descripcion}</p>
         </div>
 
         {/* Items */}
@@ -64,20 +64,27 @@ export default async function DetalleCotizacionPage({
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-4 py-2 text-left">Tipo de Caja</th>
-                <th className="px-4 py-2 text-right">Cantidad</th>
-                <th className="px-4 py-2 text-right">Precio Unit.</th>
-                <th className="px-4 py-2 text-right">Subtotal</th>
+                <th className="px-4 py-2 text-left text-black">Tipo de Caja</th>
+                <th className="px-4 py-2 text-right text-black">Cantidad</th>
+                <th className="px-4 py-2 text-right text-black">Precio Unit.</th>
+                <th className="px-4 py-2 text-right text-black">Subtotal</th>
               </tr>
             </thead>
             <tbody>
-              {items.map((item, index) => (
-                <tr key={index} className="border-t">
-                  <td className="px-4 py-3">{item.tipo_caja}</td>
-                  <td className="px-4 py-3 text-right">{item.cantidad}</td>
-                  <td className="px-4 py-3 text-right">${item.precio_unitario.toFixed(2)}</td>
-                  <td className="px-4 py-3 text-right font-medium">${item.subtotal.toFixed(2)}</td>
-                </tr>
+              {items.map((item: any, index: number) => (
+              <tr key={index} className="border-b">
+                <td className="px-4 py-3 text-black font-medium">{item.tipo_caja}</td>
+                <td className="px-4 py-3 text-right text-black">{item.cantidad}</td>
+                
+                {/* CORRECCIÓN: Convertimos a Number antes de usar .toFixed() */}
+                <td className="px-4 py-3 text-right text-black font-semibold">
+                  ${Number(item.precio_unitario || 0).toFixed(2)}
+                </td>
+                
+                <td className="px-4 py-3 text-right font-bold text-blue-700">
+                  ${Number(item.subtotal || 0).toFixed(2)}
+                </td>
+              </tr>
               ))}
             </tbody>
           </table>
@@ -87,15 +94,15 @@ export default async function DetalleCotizacionPage({
         <div className="mb-6 pb-6 border-b">
           <div className="flex justify-end">
             <div className="w-64 space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Subtotal:</span>
+              <div className="flex justify-between text-black">
+                <span className="text-black">Subtotal:</span>
                 <span>${parseFloat(cotizacion.montoSubtotal.toString()).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Descuento:</span>
                 <span className="text-red-600">-${parseFloat(cotizacion.descuento.toString()).toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-xl font-bold pt-2 border-t">
+              <div className="flex justify-between text-xl text-black font-bold pt-2 border-t">
                 <span>Total:</span>
                 <span>${parseFloat(cotizacion.montoTotal.toString()).toFixed(2)}</span>
               </div>
@@ -106,13 +113,13 @@ export default async function DetalleCotizacionPage({
         {/* Información Adicional */}
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div>
-            <span className="text-sm text-gray-600">Válida Hasta:</span>
-            <p className="font-medium">{new Date(cotizacion.fechaValidez).toLocaleDateString('es-MX')}</p>
+            <span className="text-sm text-black">Válida Hasta:</span>
+            <p className="font-medium text-black">{new Date(cotizacion.fechaValidez).toLocaleDateString('es-MX')}</p>
           </div>
           {cotizacion.convertidaPedido && (
             <div>
-              <span className="text-sm text-gray-600">Estado:</span>
-              <p className="font-medium text-green-600">✓ Convertida a Pedido</p>
+              <span className="text-sm text-black">Estado:</span>
+              <p className="font-medium text-black">✓ Convertida a Pedido</p>
             </div>
           )}
         </div>
@@ -120,8 +127,8 @@ export default async function DetalleCotizacionPage({
         {/* Notas */}
         {cotizacion.notas && (
           <div className="mb-6">
-            <h2 className="font-semibold text-gray-700 mb-2">Notas</h2>
-            <p className="text-gray-600">{cotizacion.notas}</p>
+            <h2 className="font-semibold text-black mb-2">Notas</h2>
+            <p className="text-black">{cotizacion.notas}</p>
           </div>
         )}
 

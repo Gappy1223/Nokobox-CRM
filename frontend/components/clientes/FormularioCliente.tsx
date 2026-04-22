@@ -68,7 +68,7 @@ export default function FormularioCliente() {
 
   return (
     <div className="max-w-2xl mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Nuevo Cliente</h1>
+      <h1 className="text-2xl text-black font-bold mb-6">Nuevo Cliente</h1>
 
       {error && (
         <div className="mb-4 p-3 text-sm text-red-700 bg-red-100 rounded">
@@ -80,7 +80,7 @@ export default function FormularioCliente() {
 
         {/* TIPO CLIENTE */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Tipo de Cliente *
           </label>
 
@@ -89,7 +89,7 @@ export default function FormularioCliente() {
             onChange={(e) =>
               updateField('tipoCliente', e.target.value as TipoCliente)
             }
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
           >
             <option value="PARTICULAR">B2C - Particular</option>
             <option value="EMPRESA">B2B - Empresa</option>
@@ -98,7 +98,7 @@ export default function FormularioCliente() {
 
         {/* NOMBRE */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Nombre Completo *
           </label>
 
@@ -107,7 +107,7 @@ export default function FormularioCliente() {
             required
             value={formData.nombre}
             onChange={(e) => updateField('nombre', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             placeholder="Nombre de la persona de contacto"
           />
         </div>
@@ -115,7 +115,7 @@ export default function FormularioCliente() {
         {/* EMPRESA */}
         {formData.tipoCliente === 'EMPRESA' && (
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm text-black font-medium mb-2">
               Nombre de la Empresa
             </label>
 
@@ -123,7 +123,7 @@ export default function FormularioCliente() {
               type="text"
               value={formData.nombreEmpresa}
               onChange={(e) => updateField('nombreEmpresa', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             />
           </div>
         )}
@@ -132,7 +132,7 @@ export default function FormularioCliente() {
         <div className="grid grid-cols-2 gap-4">
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm text-black font-medium mb-2">
               Teléfono *
             </label>
 
@@ -141,12 +141,12 @@ export default function FormularioCliente() {
               required
               value={formData.telefono}
               onChange={(e) => updateField('telefono', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">
+            <label className="block text-sm text-black font-medium mb-2">
               WhatsApp
             </label>
 
@@ -154,7 +154,7 @@ export default function FormularioCliente() {
               type="tel"
               value={formData.whatsapp}
               onChange={(e) => updateField('whatsapp', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
+              className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             />
           </div>
 
@@ -162,7 +162,7 @@ export default function FormularioCliente() {
 
         {/* EMAIL */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Email
           </label>
 
@@ -170,13 +170,13 @@ export default function FormularioCliente() {
             type="email"
             value={formData.email}
             onChange={(e) => updateField('email', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
           />
         </div>
 
         {/* DIRECCION */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Dirección
           </label>
 
@@ -184,13 +184,13 @@ export default function FormularioCliente() {
             rows={3}
             value={formData.direccion}
             onChange={(e) => updateField('direccion', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
           />
         </div>
 
         {/* NOTAS */}
         <div>
-          <label className="block text-sm font-medium mb-2">
+          <label className="block text-sm text-black font-medium mb-2">
             Notas
           </label>
 
@@ -198,7 +198,7 @@ export default function FormularioCliente() {
             rows={3}
             value={formData.notas}
             onChange={(e) => updateField('notas', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="w-full px-3 py-2 border text-black border-gray-300 rounded-md"
             placeholder="Información adicional, preferencias, etc."
           />
         </div>
@@ -217,7 +217,7 @@ export default function FormularioCliente() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
+            className="px-6 py-2 border border-gray-300 text-black rounded-md hover:bg-gray-50"
           >
             Cancelar
           </button>

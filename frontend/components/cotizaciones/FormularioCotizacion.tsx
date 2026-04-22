@@ -11,8 +11,8 @@ interface Cliente {
 
 interface ItemCotizacion {
   tipo_caja: string
-  cantidad: number
-  precio_unitario: number
+  cantidad: number | ''
+  precio_unitario: number | ''
   subtotal: number
 }
 
@@ -25,7 +25,7 @@ export default function FormularioCotizacion() {
   const [formData, setFormData] = useState({
     clienteId: '',
     descripcion: '',
-    descuento: 0,
+    descuento: '' as number | '',
     fechaValidez: '',
     notas: '',
   })
@@ -246,18 +246,12 @@ export default function FormularioCotizacion() {
                   />
 
                   <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={item.precio_unitario}
-                    onChange={(e) =>
-                      actualizarItem(
-                        index,
-                        'precio_unitario',
-                        Number(e.target.value)
-                      )
-                    }
-                    className="px-3 py-2 border rounded-md"
+                  type="number"
+                  step="0.01"
+                  placeholder="Precio Unit."
+                  value={item.precio_unitario}
+                  onChange={(e) => actualizarItem(index, 'precio_unitario', e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-400 bg-white text-black font-semibold rounded-md"
                   />
                 </div>
 
@@ -284,7 +278,7 @@ export default function FormularioCotizacion() {
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  descuento: Number(e.target.value) || 0,
+                  descuento: e.target.value === '' ? '' : Number(e.target.value)
                 })
               }
               className="w-32 px-2 py-1 border rounded-md"
